@@ -8,8 +8,7 @@
         <?php include(TEMPLATE_FRONT . DS . "Side_Nav.PHP") ?>
 
 
-            
-           
+
             <div class="col-md-9">
 
                 <div class="row carousel-holder">

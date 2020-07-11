@@ -1,0 +1,1 @@
+<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i><span class='hanhon'> Hello, <?php echo $_SESSION['username']; ?> </span><b class="caret"></b></a>

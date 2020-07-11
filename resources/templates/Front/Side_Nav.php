@@ -6,5 +6,9 @@
                 <?php  
                 get_categories();
                 ?>
+</br>
+
+<?php include(TEMPLATE_FRONT . DS . "tallSlider.PHP") ?>
+
                 </div>
                 </div>

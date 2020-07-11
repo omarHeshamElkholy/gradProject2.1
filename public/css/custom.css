@@ -77,11 +77,13 @@ label {
   color: wheat;
 }
 .shop_cart {
-  width: 2em;
+  width: 30px;
   right: 0;
   position: absolute;
-  float: right !important;
 }
 .hob {
   background-color: #001a33;
+}
+.caro {
+  height: 400px;
 }

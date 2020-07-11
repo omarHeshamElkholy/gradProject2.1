@@ -98,7 +98,6 @@ if($page == 1){
   $middleNumbers .= '<li class="page-item"><a class="page-link" href="'.$_SERVER['PHP_SELF'].'?page='.$subs.'">'.$subs. '</a></li>';
   $middleNumbers .= '<li class="page-item active"><a>'.$page. '</a></li>';
   $middleNumbers .= '<li class="page-item"><a class="page-link" href="'.$_SERVER['PHP_SELF'].'?page='.$add1.'">'.$add1. '</a></li>';
-  $middleNumbers .= '<li class="page-item"><a class="page-link" href="'.$_SERVER['PHP_SELF'].'?page='.$add2.'">'.$add2. '</a></li>';
 
 }
 
@@ -283,6 +282,39 @@ if (!$result) {
 
 }
   }}
+
+  function Rep_book() {
+    if(isset($_POST['submit'])){
+  
+  $to     =                "papertownapp5@gmail.com";
+  $name   =                $_POST['name'];
+  $Sellermail  =           $_POST['email'];
+  $Phone  =                $_POST['phone'];
+  $bookName  =             $_POST['bookToBeRepaired'];
+  $comments  =             $_POST['Comments'];
+  
+  $emailBody = 
+              "Hello,
+               my name is $name.
+               Email : $Sellermail.
+               Phone number: $Phone.
+               wanting to repair the book $bookName.
+               Damage to the book: $comments.";
+  
+  $headers = "From:{$name} /n {$Sellermail} /n {$Phone}";
+  
+  
+  $result = mail($to, $bookName, $emailBody, $headers);
+  if (!$result) {
+    redirect("repair.php");
+    set_message("Sorry an error has accured");
+  
+  } else {
+    redirect("repair.php");
+    set_message("Your request has been submited we will contact you shortly");
+  
+  }
+    }}
 
 
 // backend functions
@@ -554,5 +586,49 @@ DELIMETER;
 echo $newOrders2;
   }
 }
+function add_cust(){
+  if(isset($_POST['submit'])){
+$username = escape_string($_POST['username']);
+$email = escape_string($_POST['email']);
+$password = escape_string($_POST['password']);
+$query = query("INSERT INTO customeraccount(username, email, password) VALUES('{$username}', '{$email}', '{$password}')");
+confirm($query);
+set_message("User created!");
+redirect("register.php");
+}
+}
+
+function login_cust(){
+    if(isset($_POST['submit'])){
+     $username = escape_string($_POST['username']);
+     $password = escape_string($_POST['password']);
+     $email = query($query1 = query("SELECT email FROM customeraccount WHERE username = '{$username}' AND password = '{$password}'"));
+
+     $query = query("SELECT * FROM customeraccount WHERE username = '{$username}' AND password = '{$password}'");
+    confirm($query);
+    if(mysqli_num_rows($query) == 0) {
+      
+      set_message("Your Username or Password are incorrect");
+      redirect("login.php");
+    }
+    else {
+      $_SESSION['username'] = $username;
+    redirect("index.php");
+    
+    }
+    }
+    
+    }
+    
+$query = query("SELECT Product_id FROM products order by Product_id DESC LIMIT 1");
+$result = mysqli_fetch_assoc($query);
+$resultstring = $result['Product_id'];
+
+$query2 = query("SELECT Product_id FROM products order by Product_id ASC LIMIT 1");
+$result2 = mysqli_fetch_assoc($query2);
+$resultstring2 = $result2['Product_id'];
+
+    $random = rand($resultstring2, $resultstring);
+
 
 ?>

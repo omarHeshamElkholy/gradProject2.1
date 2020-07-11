@@ -17,8 +17,7 @@ if ($row ['product_quantity'] != $_SESSION['product_' . $_GET['add']])  {
 
 }
 
-//  $_SESSION['product_' . $_GET['add']] +=1;
- // redirect("index.php");
+
 }
 
 if(isset($_GET['remove'])){

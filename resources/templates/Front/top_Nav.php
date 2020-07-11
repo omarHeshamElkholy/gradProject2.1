@@ -16,7 +16,7 @@
                         <a href="shop.php">Shop</a>
                     </li>
                     <li>
-                        <a href="login.php">Login</a>
+                    <a href="item.php?id=<?php echo $random ?>">Suggest me a book</a>
                     </li>
                     <li>
                     <a href="Request.php">Request A Book</a>
@@ -24,14 +24,30 @@
                     <li>
                         <a href="sellBook.php">Sell Your Book</a>
                     </li>
-                    <li class="shop_cart">
-                        <a href="checkout.php"><img class="shop_cart" src="https://image.flaticon.com/icons/png/512/4/4291.png" alt=""></a>
+                    <li>
+                        <a href="repair.php">Reparing books</a>
                     </li>
+                    <li class="shop_cart">
+                        <a href="checkout.php"><img class="shop_cart" src="https://pluspng.com/img-png/shop-png-black-and-white-logo-512.png" alt=""></a>
+                    </li>
+
 
                 </ul>
                 <ul class="nav navbar-right top-nav">
               <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Hello, Omar Hesham <b class="caret"></b></a>
+<?php
+
+if(!isset($_SESSION['username'])) {
+    echo "<li>
+    <a href='loginuser.php'>Login</a>
+</li>
+";
+    }
+if(isset($_SESSION['username'])) {
+include ("loginheader.php");
+}
+
+?>
                     <ul class="dropdown-menu">
                        
                         <li class="divider"></li>

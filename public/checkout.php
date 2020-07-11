@@ -14,13 +14,12 @@
 <h4 class="text-center"> <?php display_message();  ?> </h4>
       <h1>Checkout</h1>
 
- <!-- <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post"> 
+ <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post"> 
   <input type="hidden" name="cmd" value="_cart">
   <input type="hidden" name="business" value="merchant@papertown.com">
   <input type="hidden" name="upload" value="1">
   <input type="hidden" name="currency_code" value="USD">
--->
-<form class="form-horizontal" action="thankyou.php">
+
 
     <table class="table table-striped">
         <thead>
@@ -37,23 +36,7 @@
         ?>
         </tbody>
     </table>
-    <!-- <input type="image" name="upload"
-    src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif"
-    alt="PayPal - The safer, easier way to pay online"> -->
-    <label for="fname">Full name:</label><br>
-  <input class="form-control" type="text" id="fname" name="name" required><br>
-  <label for="email">Email:</label><br>
-  <input class="form-control" type="email" id="mail" name="mail" required>
-</br>
-<label for="Phone Number">Phone Number:</label><br>
-  <input class="form-control" type="text" id="phone" name="phone" required>
-</br>
-  <label for="Address">Address:</label><br>
-  <input class="form-control" type="text" id="address" name="address" required>
- </br>
- <input type="hidden" id="total" name="total" value="<?php  
-echo isset($_SESSION['item_total']) ? $_SESSION['item_total'] : $_SESSION['item_total'] = "0";
-?>" readonly>
+
 
 
 
@@ -94,12 +77,94 @@ echo isset($_SESSION['item_total']) ? $_SESSION['item_total'] : $_SESSION['item_
 </table>
 
 </div><!-- CART TOTALS-->
-<input type="submit" value="Payment on delivery" class="btn btn-success form-control">
-
+<h2>Pay by Paypal:</h2>
+<input type="image" name="upload"
+    src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif"
+    alt="PayPal - The safer, easier way to pay online">
 </form>
-<!-- Checkout form -->
-<!-- <?php include(TEMPLATE_FRONT . DS . "Checkoutform.PHP") ?> -->
+<!-- payment on delivery -->
+<form class="form-horizontal" action="thankyou.php">
+<div class="invisible">
 
+<table class="table table-striped">
+        <thead>
+          <tr>
+           <th>Product</th>
+           <th>Price</th>
+           <th>Quantity</th>
+           <th>Sub-total</th>
+          </tr>
+        </thead>
+        <tbody>
+        <?php
+        cart(); 
+        ?>
+        </tbody>
+    </table>
+
+
+
+
+<!--  ***********CART TOTALS*************-->
+            
+<div class="col-xs-4 pull-right ">
+<h2>Cart Totals</h2>
+
+<table class="table table-bordered" cellspacing="0">
+
+<tr class="cart-subtotal">
+<th>Items:</th>
+<td><span class="amount">
+<?php  
+echo isset($_SESSION['item_quantity']) ? $_SESSION['item_quantity'] : $_SESSION['item_quantity'] = "0";
+?>
+</span></td>
+</tr>
+<tr class="shipping">
+<th>Shipping and Handling</th>
+<td>Free Shipping</td>
+</tr>
+
+<tr class="order-total">
+<th>Order Total</th>
+<td><strong><span class="amount">&#163;
+<?php  
+echo isset($_SESSION['item_total']) ? $_SESSION['item_total'] : $_SESSION['item_total'] = "0";
+?>
+
+
+</span></strong> </td>
+</tr>
+
+
+</tbody>
+
+</table>
+</div> </div>
+<h3>Or Pay on Delivery</h3>
+<h3>Delivery information:</h3>
+ </br>
+ </br>
+ </br>
+ </br>
+ </br>
+ </br>
+ </br>
+  <label for="fname">Full name:</label><br>
+  <input class="form-control" type="text" id="fname" name="name" required><br>
+  <label for="email">Email:</label><br>
+  <input class="form-control" type="text" id="mail" name="mail" required>
+</br>
+<label for="Phone Number">Phone Number:</label><br>
+  <input class="form-control" type="text" id="phone" name="phone" required>
+</br>
+  <label for="Address">Address:</label><br>
+  <input class="form-control" type="text" id="address" name="address" required>
+ </br>
+ <input type="hidden" id="total" name="total" value="<?php  
+echo isset($_SESSION['item_total']) ? $_SESSION['item_total'] : $_SESSION['item_total'] = "0";
+?>" readonly>
+<input type="submit" value="Payment on delivery" class="btn btn-success form-control">
 </form>
 
  </div><!--Main Content-->
