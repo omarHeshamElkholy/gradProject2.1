@@ -8,27 +8,27 @@
                     <span class="icon-bar"></span>
                 </button>
             </div>
-            <div class="logo"><a href="index.php"><img class="img-responsive logo" src="logo.png" alt=""></a></div>
+            <div class="logo"><a href="indexAr.php"><img class="img-responsive logo" src="logo.png" alt=""></a></div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav itemsxo">
                     <li>    
-                        <a href="shop.php">Shop</a>
+                        <a href="shopAr.php">التسوق</a>
                     </li>
                     <li>
-                    <a href="item.php?id=<?php echo $random ?>">Suggest me a book</a>
+                    <a href="itemAr.php?id=<?php echo $random ?>">اقترح لي كتاب</a>
                     </li>
                     <li>
-                    <a href="Request.php">Request A Book</a>
+                    <a href="RequestAr.php">اطلب كتاب</a>
                     </li>
                     <li>
-                        <a href="sellBook.php">Sell Your Book</a>
+                        <a href="sellBookAr.php">بيع كتابك</a>
                     </li>
                     <li>
-                        <a href="repair.php">Reparing books</a>
+                        <a href="repairAr.php">اصلح كتابك</a>
                     </li>
                     <li class="shop_cart">
-                        <a href="checkout.php"><img class="shop_cart" src="https://pluspng.com/img-png/shop-png-black-and-white-logo-512.png" alt=""></a>
+                        <a href="checkoutAr.php"><img class="shop_cart" src="https://pluspng.com/img-png/shop-png-black-and-white-logo-512.png" alt=""></a>
                     </li>
 
 
@@ -39,13 +39,14 @@
 
 if(!isset($_SESSION['username'])) {
     echo "<li>
-    <a href='loginuser.php'>Login</a>
-    <a href='indexAr.php'>اللغة العربية </a>
+    <a href='loginuserAr.php'>تسجيل الدخول</a>
+    <a href='index.php'>English</a>
+
 </li>
 ";
     }
 if(isset($_SESSION['username'])) {
-include ("loginheader.php");
+include ("loginheaderAr.php");
 }
 
 ?>
@@ -53,7 +54,7 @@ include ("loginheader.php");
                        
                         <li class="divider"></li>
                         <li>
-                            <a href="logout.php"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                            <a href="logout.php"><i class="fa fa-fw fa-power-off"></i> تسجيل الخروج</a>
                         </li>
                     </ul>
                 </li>

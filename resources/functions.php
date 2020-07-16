@@ -144,12 +144,119 @@ if($page != $lastPage){
 echo "<div class='text-center'><ul class='pagination'>$output</ul></div>";
 
 }
+function get_productAr() {
+
+  $query = query("SELECT * FROM products");
+  confirm($query);
+
+$rows = mysqli_num_rows($query);
+ if(isset($_GET['page'])){
+   $page = preg_replace('#[^0-9]#', '', $_GET['page']);
+ } else {
+   $page = 1;
+ }
+ $perPage = 9;
+ $lastPage = ceil($rows / $perPage);
+
+ if($page<1){
+   $page = 1;
+ } elseif($page > $lastPage){
+   $page = $lastPage;
+ }
+ /*********Middle numbers pagination *******/
+ $middleNumbers = '';
+ $subs = $page - 1;
+ $subs2 = $page - 2;
+ $add1 = $page + 1;
+ $add2 = $page +2;
+if($page == 1){
+
+
+  $middleNumbers .= '<li class="page-item active"><a>'.$page. '</a></li>';
+
+
+  $middleNumbers .= '<li class="page-item"><a class="page-link" href="'.$_SERVER['PHP_SELF'].'?page='.$add1.'">'.$add1. '</a></li>';
+}elseif ($page == $lastPage) {
+
+  $middleNumbers .= '<li class="page-item"><a class="page-link" href="'.$_SERVER['PHP_SELF'].'?page='.$subs.'">'.$subs. '</a></li>';
+
+  $middleNumbers .= '<li class="page-item active"><a>'.$page. '</a></li>';
+
+}elseif ($page > 2 && $page < ($lastPage -1)) {
+  $middleNumbers .= '<li class="page-item"><a class="page-link" href="'.$_SERVER['PHP_SELF'].'?page='.$subs2.'">'.$subs2. '</a></li>';
+  $middleNumbers .= '<li class="page-item"><a class="page-link" href="'.$_SERVER['PHP_SELF'].'?page='.$subs.'">'.$subs. '</a></li>';
+  $middleNumbers .= '<li class="page-item active"><a>'.$page. '</a></li>';
+  $middleNumbers .= '<li class="page-item"><a class="page-link" href="'.$_SERVER['PHP_SELF'].'?page='.$add1.'">'.$add1. '</a></li>';
+  $middleNumbers .= '<li class="page-item"><a class="page-link" href="'.$_SERVER['PHP_SELF'].'?page='.$add2.'">'.$add2. '</a></li>';
+
+
+}elseif($page > 1 && $page < $lastPage){
+  $middleNumbers .= '<li class="page-item"><a class="page-link" href="'.$_SERVER['PHP_SELF'].'?page='.$subs.'">'.$subs. '</a></li>';
+  $middleNumbers .= '<li class="page-item active"><a>'.$page. '</a></li>';
+  $middleNumbers .= '<li class="page-item"><a class="page-link" href="'.$_SERVER['PHP_SELF'].'?page='.$add1.'">'.$add1. '</a></li>';
+
+}
+
+$limit = 'LIMIT '. ($page-1) * $perPage . ',' . $perPage;
+
+$query2 = query("SELECT * FROM products $limit");
+confirm($query2);
+
+$output = "";
+if($page != 1){
+$prev = $page -1;
+$output .= '<li class="page-item"><a class="page-link" href="'.$_SERVER['PHP_SELF'].'?page='.$prev.'"> السابق </a></li>';
+}
+$output .= $middleNumbers;
+
+if($page != $lastPage){
+
+  $next = $page + 1;
+  $output .= '<li class="page-item"><a class="page-link" href="'.$_SERVER['PHP_SELF'].'?page='.$next.'"> التالي </a></li>';
+
+}
+
+
+
+  while ($row = fetch_array($query2)) {
+    $product_image = display_image($row['Product_image']);
+
+    $product = <<<DELIMETER
+    <div class="col-sm-4 col-lg-4 col-md-4 ">
+                        <div class="thumbnail prodxo">
+                            <a href="itemAr.php?id={$row['Product_id']}"><img src="../resources/{$product_image}" alt=""></a>
+                            <div class="caption">
+                                <h4 class="pull-right">&pound;{$row['Product_price']}</h4>
+                                <h4><a href="itemAr.php?id={$row['Product_id']}">{$row['Product_title']}</a>
+                                </h4>
+                                <p class="descxo">{$row['short_desc']}</p>
+                            </div>
+                            <a href="cartAr.php?add={$row['Product_id']}" class="btn btn-primary">اضف الى سلة الكتب</a>
+                          </div>
+                    </div>           
+    DELIMETER;
+    echo $product;
+  }
+echo "<div class='text-center'><ul class='pagination'>$output</ul></div>";
+
+}
 function get_categories(){
   $query =query("SELECT * FROM Categories");
                 confirm($query);
                 while($row = mysqli_fetch_array($query)) {
                   $categories_links = <<<DELIMETER
                   <a href='category.php?id={$row['Cat_id']}' class='list-group-item linksxo'>{$row['Cat_Title']}</a>
+                  DELIMETER;
+                echo $categories_links;
+                           
+                }
+}
+function get_categoriesAr(){
+  $query =query("SELECT * FROM Categories");
+                confirm($query);
+                while($row = mysqli_fetch_array($query)) {
+                  $categories_links = <<<DELIMETER
+                  <a href='categoryAr.php?id={$row['Cat_id']}' class='list-group-item linksxo'>{$row['Cat_TitleAr']}</a>
                   DELIMETER;
                 echo $categories_links;
                            
@@ -174,7 +281,32 @@ function get_product_in_cat_page() {
                                 </h4>
                                 <p class="descxo">{$row['short_desc']}</p>
                             </div>
-                            <a href="item.php" class="btn btn-primary">Buy Now</a>
+                            <a href="cartAr.php?add={$row['Product_id']}" class="btn btn-primary">Buy now</a>
+                          </div>
+                    </div>           
+    DELIMETER;
+    echo $product;
+  }
+}
+function get_product_in_cat_pageAr() {
+
+  $query = query(" SELECT * FROM products WHERE Product_category_id = " . escape_string($_GET['id']) . " ");
+  confirm($query);
+
+  while ($row = fetch_array($query)) {
+    $product_image = display_image($row['Product_image']);
+
+    $product = <<<DELIMETER
+    <div class="col-sm-4 col-lg-4 col-md-4">
+                        <div class="thumbnail prodxo">
+                            <a href="itemAr.php?id={$row['Product_id']}"><img src="../resources/{$product_image}" alt=""></a>
+                            <div class="caption">
+                                <h4 class="pull-right">&pound;{$row['Product_price']}</h4>
+                                <h4><a href="itemAr.php?id={$row['Product_id']}">{$row['Product_title']}</a>
+                                </h4>
+                                <p class="descxo">{$row['short_desc']}</p>
+                            </div>
+                            <a href="cartAr.php?add={$row['Product_id']}" class="btn btn-primary">اضف الى سلة الكتب</a>
                           </div>
                     </div>           
     DELIMETER;
@@ -597,6 +729,17 @@ set_message("User created!");
 redirect("register.php");
 }
 }
+function add_custAr(){
+  if(isset($_POST['submit'])){
+$username = escape_string($_POST['username']);
+$email = escape_string($_POST['email']);
+$password = escape_string($_POST['password']);
+$query = query("INSERT INTO customeraccount(username, email, password) VALUES('{$username}', '{$email}', '{$password}')");
+confirm($query);
+set_message("!تم تسجيل الحساب");
+redirect("registerAr.php");
+}
+}
 
 function login_cust(){
     if(isset($_POST['submit'])){
@@ -619,6 +762,27 @@ function login_cust(){
     }
     
     }
+    function login_custAr(){
+      if(isset($_POST['submit'])){
+       $username = escape_string($_POST['username']);
+       $password = escape_string($_POST['password']);
+       $email = query($query1 = query("SELECT email FROM customeraccount WHERE username = '{$username}' AND password = '{$password}'"));
+  
+       $query = query("SELECT * FROM customeraccount WHERE username = '{$username}' AND password = '{$password}'");
+      confirm($query);
+      if(mysqli_num_rows($query) == 0) {
+        
+        set_message("اسم المستخدم او كلمة السر غير موجودين");
+        redirect("loginAr.php");
+      }
+      else {
+        $_SESSION['username'] = $username;
+      redirect("indexAr.php");
+      
+      }
+      }
+      
+      }
     
 $query = query("SELECT Product_id FROM products order by Product_id DESC LIMIT 1");
 $result = mysqli_fetch_assoc($query);
