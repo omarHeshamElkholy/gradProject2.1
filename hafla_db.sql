@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 11, 2020 at 02:22 PM
+-- Generation Time: Jul 16, 2020 at 04:19 PM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.10
 
@@ -30,19 +30,20 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `categories` (
   `Cat_id` int(11) NOT NULL,
-  `Cat_Title` varchar(255) NOT NULL
+  `Cat_Title` varchar(255) NOT NULL,
+  `Cat_TitleAr` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `categories`
 --
 
-INSERT INTO `categories` (`Cat_id`, `Cat_Title`) VALUES
-(1, 'Textbooks'),
-(2, 'Novels'),
-(3, 'Lifestyle '),
-(7, 'History'),
-(10, 'Medical');
+INSERT INTO `categories` (`Cat_id`, `Cat_Title`, `Cat_TitleAr`) VALUES
+(1, 'Textbooks', 'كتب دراسية'),
+(2, 'Novels', 'روايات'),
+(3, 'Lifestyle ', 'كتب نمط الحياة'),
+(7, 'History', 'تاريخية'),
+(10, 'Medical', 'طبية');
 
 -- --------------------------------------------------------
 
@@ -109,7 +110,11 @@ INSERT INTO `orders` (`order_id`, `cust_name`, `cust_email`, `cust_phone`, `cust
 (137, 'OMAR HESHAM ELKHOLY', 'omr.hesham@gmail.com', 1146359174, 'ABBAS EL AKAD, EL FATH 64', 'Harry Potter and The Chamber of Secrets', 1, 60),
 (138, 'Allaa Allah Bayomi', 'allaamohaamed@gmail.com', 1121540761, 'Sudan Street,el muhandseen,giza', 'Harry Potter And The Order Of The Phoenix', 1, 60),
 (139, 'za3tar', 'omr.hesham@gmail.com', 1146359174, 'ABBAS EL AKAD, EL FATH 64', 'Rising Strong', 1, 70),
-(140, 'Omar Hesham Elkholy', 'omr.hesham@gmail.com', 1146359174, 'ABBAS EL AKAD, EL FATH 64', 'Harry Potter And The Order Of The Phoenix', 1, 60);
+(140, 'Omar Hesham Elkholy', 'omr.hesham@gmail.com', 1146359174, 'ABBAS EL AKAD, EL FATH 64', 'Harry Potter And The Order Of The Phoenix', 1, 60),
+(141, 'OMAR HESHAM ELKHOLY', 'omr.hesham@gmail.com', 1146359174, 'ABBAS EL AKAD, EL FATH 64', 'Harry Potter and The Chamber of Secrets', 1, 60),
+(142, 'OMAR HESHAM ELKHOLY', 'omr.hesham@gmail.com', 1146359174, 'ABBAS EL AKAD, EL FATH 64', 'Harry Potter and The Chamber of Secrets', 1, 60),
+(143, 'OMAR HESHAM ELKHOLY', 'omr.hesham@gmail.com', 1146359174, 'ABBAS EL AKAD, EL FATH 64', 'Harry Potter and The Chamber of Secrets', 1, 60),
+(144, 'OMAR HESHAM ELKHOLY', 'omr.hesham@gmail.com', 1146359174, 'ABBAS EL AKAD, EL FATH 64', 'Harry Potter and The Chamber of Secrets', 1, 60);
 
 -- --------------------------------------------------------
 
@@ -229,13 +234,13 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `customeraccount`
 --
 ALTER TABLE `customeraccount`
-  MODIFY `cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
+  MODIFY `cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=141;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=145;
 
 --
 -- AUTO_INCREMENT for table `products`
